@@ -1,0 +1,53 @@
+package com.blogspot.toomuchcoding.book.chapter4._4_StubbingMethodThatReturnsCustomAnswer.hamcrest;
+
+import com.blogspot.toomuchcoding.book.chapter4.common.returningvalue.MeanTaxFactorCalculator;
+import com.blogspot.toomuchcoding.book.chapter4.common.returningvalue.TaxFactorFetcher;
+import com.blogspot.toomuchcoding.common.testng.MockitoTestNGListener;
+import com.blogspot.toomuchcoding.person.Person;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.invocation.InvocationOnMock;
+import org.mockito.stubbing.Answer;
+import org.testng.annotations.Listeners;
+import org.testng.annotations.Test;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.Matchers.any;
+
+@Listeners(MockitoTestNGListener.class)
+public class MeanTaxFactorCalculatorTestNgTest {
+
+    @Mock TaxFactorFetcher taxFactorFetcher;
+
+    @InjectMocks MeanTaxFactorCalculator systemUnderTest;
+
+    @Test
+    public void should_return_tax_factor_incremented_by_additional_factor_when_calculating_mean_tax_factor() {
+        // given
+        final double additionalTaxFactor = 100;
+        final double factorForPersonFromUndefinedCountry = 200;
+        given(taxFactorFetcher.getTaxFactorFor(any(Person.class))).willAnswer(new Answer<Object>() {
+            @Override
+            public Object answer(InvocationOnMock invocation) throws Throwable {
+                if (invocation.getArguments().length > 0) {
+                    Person person = (Person) invocation.getArguments()[0];
+                    if (!person.isCountryDefined()) {
+                        return additionalTaxFactor + factorForPersonFromUndefinedCountry;
+                    }
+                }
+                return additionalTaxFactor;
+            }
+        });
+
+        // when
+        double meanTaxFactor = systemUnderTest.calculateMeanTaxFactorFor(new Person());
+
+        // then
+        assertThat(meanTaxFactor, equalTo(additionalTaxFactor + factorForPersonFromUndefinedCountry));
+    }
+
+}
+
+

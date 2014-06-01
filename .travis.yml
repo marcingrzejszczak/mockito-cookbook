@@ -1,0 +1,9 @@
+script:
+
+./gradlew clean build
+mvn clean install
+
+jdk:
+  - oraclejdk8
+  - oraclejdk7
+  - openjdk6

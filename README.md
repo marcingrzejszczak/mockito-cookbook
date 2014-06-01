@@ -93,3 +93,8 @@ or maven
    mvn clean install
 ```
 
+
+Build status
+--------------
+[![Build Status](https://travis-ci.org/marcingrzejszczak/mockito-cookbook.svg?branch=master)](https://travis-ci.org/marcingrzejszczak/mockito-cookbook)
+

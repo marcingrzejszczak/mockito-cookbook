@@ -1,0 +1,6 @@
+include 'common'
+include 'common-test'
+(1..9).each {
+	include "chapter0$it"
+}
+include 'chapter10'

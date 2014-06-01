@@ -1,0 +1,11 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:mockito="http://www.mockito.org/spring/mockito"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+                           http://www.mockito.org/spring/mockito
+                           http://www.mockito.org/spring/mockito.xsd">
+
+    <mockito:mock id="taxService" class="com.blogspot.toomuchcoding.book.chapter9.InjectingWithSpringockito.TaxService" />
+
+</beans>

@@ -1,0 +1,208 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath("com.ofg:uptodate-gradle-plugin:0.0.2")
+    }
+}
+
+ext {
+    projectGroup='com.blogspot.toomuchcoding'
+    projectArtifact='mockito-cookbook'
+    projectVersion='1.0'
+
+    hamcrestVersion = '1.3'
+    junitVersion = '4.11'
+    testNgVersion = '6.8.7'
+    mockitoVersion = '1.9.5'
+    assertjVersion = '1.6.0'    
+    powerMockVersion = '1.5.4'
+    catchExceptionVersion = '1.2.0'
+}
+
+subprojects {
+	apply plugin: 'java'
+    apply plugin: 'uptodate'
+    
+    group=projectGroup
+    version=projectVersion
+
+    repositories {
+        mavenCentral()
+    }
+
+    task runTestNgTests(type: Test) {
+        useTestNG()
+        reports.html.destination = file("$buildDir/reports/testng")
+        include '**/*TestNgTest*'
+        maxParallelForks = 4
+    }
+
+    test {
+        dependsOn(runTestNgTests)
+        useJUnit()
+        reports.html.destination = file("$buildDir/reports/testjunit")
+        exclude '**/*TestNgTest*'
+        maxParallelForks = 4
+    }
+
+    dependencies {
+        testCompile "org.hamcrest:hamcrest-all:$hamcrestVersion"
+        testCompile "junit:junit:$junitVersion"
+        testCompile "org.testng:testng:$testNgVersion"
+        testCompile "org.mockito:mockito-all:$mockitoVersion"
+        testCompile "org.assertj:assertj-core:$assertjVersion"
+    }
+
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '1.11'
+}
+
+
+// PROJECTS
+project(':common') {
+
+}
+
+project(':common-test') {
+
+    dependencies {
+        compile project(':common')
+        compile "org.hamcrest:hamcrest-all:$hamcrestVersion"
+        compile "junit:junit:$junitVersion"
+        compile "org.testng:testng:$testNgVersion"
+        compile "org.mockito:mockito-all:$mockitoVersion"
+        compile "org.assertj:assertj-core:$assertjVersion"
+    }
+
+}
+
+project(':chapter01') {
+    dependencies {
+        compile project(':common')
+
+        testCompile project(':common-test')
+    }
+}
+
+project(':chapter02') {
+    dependencies {
+        compile project(':common')
+
+        testCompile project(':common-test')
+        testCompile "org.powermock:powermock-api-mockito:$powerMockVersion"
+        testCompile "org.powermock:powermock-module-junit4:$powerMockVersion"
+        testCompile "org.powermock:powermock-module-testng:$powerMockVersion"
+    }
+}
+
+project(':chapter03') {
+    dependencies {
+        compile project(':common')
+
+        testCompile project(':common-test')
+        testCompile "org.powermock:powermock-api-mockito:$powerMockVersion"
+        testCompile "org.powermock:powermock-module-junit4:$powerMockVersion"
+        testCompile "org.powermock:powermock-module-testng:$powerMockVersion"
+    }
+}
+
+project(':chapter04') {
+    dependencies {
+        compile project(':common')
+
+        testCompile project(':common-test')
+        testCompile "com.googlecode.catch-exception:catch-exception:$catchExceptionVersion"
+        testCompile "org.powermock:powermock-api-mockito:$powerMockVersion"
+        testCompile "org.powermock:powermock-module-junit4:$powerMockVersion"
+        testCompile "org.powermock:powermock-module-testng:$powerMockVersion"
+    }
+}
+project(':chapter05') {
+    dependencies {
+        compile project(':common')
+
+        testCompile project(':common-test')
+        testCompile "com.googlecode.catch-exception:catch-exception:$catchExceptionVersion"
+        testCompile "org.powermock:powermock-api-mockito:$powerMockVersion"
+        testCompile "org.powermock:powermock-module-junit4:$powerMockVersion"
+        testCompile "org.powermock:powermock-module-testng:$powerMockVersion"
+    }
+}
+
+project(':chapter06') {
+    dependencies {
+        compile project(':common')
+
+        testCompile project(':common-test')
+        testCompile 'com.jayway.awaitility:awaitility:1.6.0'
+    }
+}
+
+project(':chapter07') {
+    dependencies {
+        compile project(':common')
+
+        testCompile project(':common-test')
+    }
+}
+
+project(':chapter08') {
+    dependencies {
+        compile project(':common')
+
+        testCompile project(':common-test')
+        testCompile "org.powermock:powermock-api-mockito:$powerMockVersion"
+        testCompile "org.powermock:powermock-module-junit4:$powerMockVersion"
+        testCompile "org.powermock:powermock-module-testng:$powerMockVersion"
+    }
+}
+
+project(':chapter09') {
+    
+    ext {
+        springVersion = '4.0.5.RELEASE'
+        springockitoVersion = '1.0.9'
+    }
+    
+    dependencies {
+        compile project(':common')
+        compile "org.springframework:spring-core:$springVersion"
+        compile "org.springframework:spring-context:$springVersion"
+        compile 'com.google.inject:guice:3.0'
+
+        testCompile project(':common-test')
+        testCompile "com.googlecode.catch-exception:catch-exception:$catchExceptionVersion"
+        testCompile('org.jukito:jukito:1.4') {
+            exclude group: "org.mockito"
+        }
+        testCompile "org.kubek2k:springockito:$springockitoVersion"
+        testCompile "org.kubek2k:springockito-annotations:$springockitoVersion"
+        testCompile "org.springframework:spring-test:$springVersion"
+    }
+}
+
+project(':chapter10') {
+    apply plugin: 'groovy'
+
+    ext {
+        jMockVersion = '2.6.0'
+    }
+
+    dependencies {
+        compile project(':common')
+        compile "org.codehaus.groovy:groovy-all:2.3.2"
+
+        testCompile project(':common-test')
+        testCompile 'org.easymock:easymock:3.2'
+        testCompile 'com.googlecode.jmockit:jmockit:1.7'
+        testCompile "org.jmock:jmock-junit4:$jMockVersion"
+        testCompile "org.jmock:jmock-legacy:$jMockVersion"
+        testCompile "org.jmock:jmock:$jMockVersion"
+        testCompile 'org.spockframework:spock-core:0.7-groovy-2.0'
+        testCompile 'junit:junit:4.11'
+    }
+}

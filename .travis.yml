@@ -1,7 +1,4 @@
-script:
-
-./gradlew clean build
-mvn clean install
+script: ./gradlew clean build && mvn clean install
 
 jdk:
   - oraclejdk8

@@ -1,7 +1,7 @@
 Mockito Cookbook Code Repository
 =================================
 
-This repository contains code present in my "Mockito Cookbook" by Packt Publishing.
+This repository contains code present in my "Mockito Cookbook" published by Packt Publishing. You can buy the book [here](https://www.packtpub.com/mockito-cookbook/book)
 
 The structure
 -------------
@@ -93,6 +93,9 @@ or maven
    mvn clean install
 ```
 
+Contact
+--------------
+In case of any issues, doubts or if you need help with understanding sth just contact me either via email - marcin(at)grzejszczak.pl or via my blog at [http://toomuchcoding.blogspot.com](http://toomuchcoding.blogspot.com), or my homepage [http://www.marcin.grzejszczak.pl](http://www.marcin.grzejszczak.pl), or Twitter - [@MGrzejszczak](http://twitter.com/MGrzejszczak).
 
 Build status
 --------------

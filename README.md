@@ -104,3 +104,7 @@ Build status
 --------------
 [![Build Status](https://travis-ci.org/marcingrzejszczak/mockito-cookbook.svg?branch=master)](https://travis-ci.org/marcingrzejszczak/mockito-cookbook)
 
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/marcingrzejszczak/mockito-cookbook/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
